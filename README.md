@@ -86,9 +86,9 @@ Tüm kodlar ekip tarafından geliştirilmiş ve kontrol edilmiştir.
 
 ## Oyun Geliştiricileri
 
-Mustafa Yusuf Daşdemir
-Fatma Beray Eraslan
-Enes Tanrıverdi
+- Mustafa Yusuf Daşdemir
+- Fatma Beray Eraslan
+- Enes Tanrıverdi
 
 ## Kaynakça / Assets
 
