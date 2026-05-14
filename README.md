@@ -16,9 +16,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 ##  Kontroller
 
 - W / A / S / D → Hareket
-- Mouse / Yön → Nişan alma (varsa)
-- SPACE → Etkileşim / aksiyon
-- 
+
 
 ## Oyun Mekanikleri
 
@@ -44,6 +42,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 - Kutu–kutu çarpışma sistemi
 - Momentum ve yön değiştirme
 - Dinamik engel yapısı
+<img width="1013" height="764" alt="WhatsApp Image 2026-05-14 at 19 38 10" src="https://github.com/user-attachments/assets/6e8268bf-a5f1-4427-ac03-5a231e0de36c" />
 
 
 
@@ -52,6 +51,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 - Sadece oyuncu etrafı görünür
 - Geri sayım süresi
 - Kaçış odaklı final bölüm
+<img width="1013" height="764" alt="WhatsApp Image 2026-05-14 at 19 38 10 (1)" src="https://github.com/user-attachments/assets/b2eb99cf-d464-44b3-b535-25ed10e4eb59" />
 
 
 
