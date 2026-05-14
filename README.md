@@ -27,7 +27,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 - Mermi atış sistemi
 - Oyuncu–mermi çarpışma sistemi
 - Patlama efektleri
-
+<img width="1013" height="763" alt="WhatsApp Image 2026-05-14 at 19 38 09" src="https://github.com/user-attachments/assets/adcf0f7d-fed3-4bfd-ba0e-b261f636763e" />
 
 
 ### Sektör 2 – Sıcaklık Sistemi
@@ -35,6 +35,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 - Anahtar toplama mekaniği
 - Sıcaklığı düşürme sistemi
 - Çevresel baskı altında ilerleme
+<img width="1017" height="765" alt="WhatsApp Image 2026-05-14 at 19 38 09 (1)" src="https://github.com/user-attachments/assets/40eff1fd-e4ca-4f27-8f7d-247545a931cf" />
 
 
 
