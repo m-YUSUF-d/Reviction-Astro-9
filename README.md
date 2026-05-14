@@ -65,10 +65,10 @@ Her bölüm farklı bir oyun mekaniği içerir:
 - ##  Kullanılan Teknolojiler
 
 - HTML5 Canvas
-- JavaScript (ES6 Modülleri)
+- JavaScript 
 - CSS3
-- Git & GitHub (versiyon kontrolü)
-- GitHub Pages (yayınlama)
+- Git & GitHub 
+- GitHub Pages 
 
 ##  Canlı Oyun Linki
 
