@@ -112,10 +112,10 @@ function updateBullets(player_, canvas) {
         }
         // mermi canvas dışına çıkarsa patlama olur
         if (
-            b.x < 0 ||
-            b.x > canvas.width ||
-            b.y < 0 ||
-            b.y > canvas.height
+            b.x < 2 ||
+            b.x + 2 > canvas.width ||
+            b.y < 2 ||
+            b.y + 2 > canvas.height
         ) {
             bullet.playBlastSound();
             sectorObjects.explosions.push(blast.createBlast(b.x, b.y));
@@ -124,10 +124,10 @@ function updateBullets(player_, canvas) {
         }
         //mermiler oyuncuya çarparsa patlama olur ve oyun biter
         if (
-            b.x < player_.x + player_.size &&
-            b.x + b.radius > player_.x &&
-            b.y < player_.y + player_.size &&
-            b.y + b.radius > player_.y
+            b.x - 10 < player_.x + player_.size &&
+            b.x + b.radius > player_.x - 10 &&
+            b.y - 10 < player_.y + player_.size &&
+            b.y + b.radius > player_.y - 10
         ) {
             bullet.playBlastSound();
             sectorObjects.explosions.push(blast.createBlast(b.x, b.y));

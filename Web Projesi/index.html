@@ -1,17 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./Css/style.css" />
-    <title>Canvas Game</title>
+    <meta charset="UTF-8">
+    <title>Reviction: Astro-9</title>
+    <style>
+        /* 1. Tüm sayfayı siyah yap ve içeriği tam merkeze oturt */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 2. ANA KONTROL PANELİ: Tam 800x800 ve Turkuaz Çerçeve */
+        #game-window {
+            width: 800px;
+            height: 800px;
+            border: 2px solid #00ffcc;
+            box-sizing: border-box;
+            /* Sınırların içeriye dahil edilmesi kritik */
+            position: relative;
+            background-color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            color: #00ffcc;
+            overflow: hidden;
+        }
+
+        /* Ekranları hizalamak için ortak stil */
+        .screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* MENÜ EKRANI */
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 5px;
+            margin: 0 0 10px 0;
+            text-shadow: 3px 0 #ff0055, -3px 0 #00ffcc;
+        }
+
+        .sub-title {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .menu-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+
+        /* GÖRSELDEKİ DOLU TURKUAZ BUTON */
+        #start-btn {
+            background-color: #00ffcc;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-family: inherit;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #start-btn:hover {
+            box-shadow: 0 0 20px #00ffcc;
+            transform: scale(1.05);
+        }
+
+        /* JENERİK EKRANI (SOLA DAYALI) */
+        #jenerik-screen {
+            display: none;
+            text-align: left;
+            align-items: flex-start;
+            justify-content: flex-start;
+            /* Yazının en üstten başlaması için */
+            padding: 60px;
+        }
+
+        .type-box {
+            font-size: 1rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            width: 100%;
+        }
+
+        /* İmleç */
+        .cursor::after {
+            content: '█';
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <script type="module" src="./Js/main.js"></script>
 
+    <!-- HER ŞEY BU 800x800 KUTUNUN İÇİNDE DÖNECEK -->
+    <div id="game-window">
+
+        <!-- MENÜ EKRANI -->
+        <div id="menu-screen" class="screen">
+            <h1>Reviction : Astro-9</h1>
+            <div class="sub-title">Hatalı Bir Uyanış Hikayesi</div>
+            <p class="menu-text">
+                Uzayın sonsuz karanlığında ilerleyen devasa koloni gemisi Astra-9,
+                insanlığın son umutlarından biriydi. Yüzlerce mürettebat üyesi, yıllarca
+                sürecek yolculuk boyunca kriyojenik kapsüllerinde uyuyordu.
+            </p>
+            <button id="start-btn">SİSTEMİ BAŞLAT</button>
+        </div>
+
+
+        <!-- JENERİK EKRANI -->
+        <div id="jenerik-screen" class="screen">
+            <div id="jenerik-content" class="type-box cursor"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const storyText = `Her şey kusursuz ilerliyordu…\n\nTa ki o ana kadar.\n\nÖnce hafif bir sarsıntı hissedildi. Sensörler çılgınca alarm vermeye başladı. Bir meteor fırtınası geminin rotasına girmişti. Savunma sistemi tepki veremeden, devasa bir meteor geminin orta gövdesini delip geçti.\n\nAna güç çekirdeği parçalandı.\nYapay zekâ sistemi tamamen çöktü.\n\nAcil durum protokolü devreye girerek gemiyi dört sektöre ayırdı. Dev çelik kapılar kapanırken yüzlerce insan kriyo kapsüllerinde mahsur kaldı.\n\nVe o sırada…\nBir kapsül açıldı.\n\nSeninki.\n\n"KRİTİK HASAR.\nANA REAKTÖR ÇÖKÜŞÜ KAÇINILMAZ.\nTAHMİNİ İMHA SÜRESİ: 47 DAKİKA."\n\nDiğer herkes hâlâ uykuda. Onları uyandırmalısın.`;
+
+        function typeEffect(elementId, text, speed, onComplete) {
+            const el = document.getElementById(elementId);
+            let i = 0;
+            el.textContent = "";
+            function type() {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else if (onComplete) {
+                    onComplete();
+                }
+            }
+            type();
+        }
+
+        document.getElementById('start-btn').onclick = () => {
+            document.getElementById('menu-screen').style.display = 'none';
+            document.getElementById('jenerik-screen').style.display = 'flex';
+
+            setTimeout(() => {
+                typeEffect('jenerik-content', storyText, 5, () => {
+                    setTimeout(() => { window.location.href = "game.html"; }, 2000);
+                });
+            }, 500);
+        };
+    </script>
 </body>
 
 </html>
