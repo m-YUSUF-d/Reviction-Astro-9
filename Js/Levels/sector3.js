@@ -16,7 +16,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_3 = new Image();
-tileImg_3.src = "../assets/tiles/tile3.png";
+tileImg_3.src = "./assets/tiles/tile3.png";
 
 
 //turretleri oluşturur

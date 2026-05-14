@@ -20,9 +20,9 @@ export const player = {
 const idleImg = new Image();
 const walkImg1 = new Image();
 const walkImg2 = new Image();
-idleImg.src = "../assets/player/idle.png";
-walkImg1.src = "../assets/player/walk1.png";
-walkImg2.src = "../assets/player/walk2.png";
+idleImg.src = "assets/player/idle.png";
+walkImg1.src = "assets/player/walk1.png";
+walkImg2.src = "assets/player/walk2.png";
 
 //animasyon kareleri
 const walkFrames = [walkImg1, walkImg2];
@@ -33,9 +33,9 @@ let isMoving = false;
 
 
 //oyuncuyu günceller
-export function updatePlayer(keys, canvas, objects) {
-    if (keys["w"] || keys["arrowup"]) player.velocityY -= player.acceleration;
-    if (keys["s"] || keys["arrowdown"]) player.velocityY += player.acceleration;
+export function updatePlayer(keys, canvas, objects, delta) {
+    if (keys["w"] || keys["arrowup"]) player.velocityY -= player.acceleration * delta;
+    if (keys["s"] || keys["arrowdown"]) player.velocityY += player.acceleration * delta;
     if (keys["a"] || keys["arrowleft"]) player.velocityX -= player.acceleration;
     if (keys["d"] || keys["arrowright"]) player.velocityX += player.acceleration;
 

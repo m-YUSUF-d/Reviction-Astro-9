@@ -12,5 +12,5 @@ export function createBox(x, y, width, height) {
 }
 export const boxImg = new Image();
 export const boxImg2 = new Image();
-boxImg.src = "../assets/objects/box1.jpg";
-boxImg2.src = "../assets/objects/box2.png";
+boxImg.src = "assets/objects/box1.jpg";
+boxImg2.src = "assets/objects/box2.png";

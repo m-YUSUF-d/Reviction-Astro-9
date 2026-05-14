@@ -9,4 +9,4 @@ export function createBlast(x, y) {
     };
 }
 export const blastImg = new Image();
-blastImg.src = "../assets/turret/blast.png";
+blastImg.src = "assets/turret/blast.png";

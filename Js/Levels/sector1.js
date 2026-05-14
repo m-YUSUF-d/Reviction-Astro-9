@@ -5,7 +5,6 @@ import * as blast from "../Entities/blast.js";
 import * as door from "../Entities/door.js";
 import * as player from "../Entities/player.js";
 import * as state from "../states.js";
-import * as audio from "../audioManager.js"
 
 export const sectorObjects = {
     turrets: [],
@@ -16,7 +15,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_1 = new Image();
-tileImg_1.src = "../assets/tiles/tile1.png";
+tileImg_1.src = "./assets/tiles/tile1.png";
 
 
 //mesafeler

@@ -11,10 +11,10 @@ export function createBullet(x, y, angle) {
     };
 }
 export const bulletImg = new Image();
-bulletImg.src = "../assets/turret/turret_bullet.png";
+bulletImg.src = "assets/turret/turret_bullet.png";
 
 export function playBlastSound() {
-    const audio = new Audio("./assets/sounds/blast.mp3");
+    const audio = new Audio("assets/sounds/blast.mp3");
     audio.volume = 1;
     audio.currentTime = 0;
     audio.play();

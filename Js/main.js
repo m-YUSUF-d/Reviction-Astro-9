@@ -73,8 +73,16 @@ function story(index) {
 
 }
 
+
+let lastTime = 0;
+let delta = 1;
 //ana oyun döngüsü
-function gameLoop() {
+function gameLoop(time) {
+    const dt = time - lastTime; // ms
+    lastTime = time;
+    // 60 FPS'e normalize (16.67ms = 1 frame)
+    delta = dt / (1000 / 60);
+
     if (state.isPlayerDead) {
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -89,10 +97,10 @@ function gameLoop() {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = "white";
-        ctx.font = "48px Arial";
+        ctx.font = "36px Arial";
         ctx.textAlign = "center";
         if (currentSector >= 4) {
-            ctx.fillText("All sector completed !", canvas.width / 2, canvas.height / 2);
+            ctx.fillText("All sectors completed !", canvas.width / 2, canvas.height / 2);
         }
         else {
             ctx.fillText(`Sector ${currentSector} completed! Press R to Continue`, canvas.width / 2, canvas.height / 2);
@@ -104,7 +112,7 @@ function gameLoop() {
             case 1:
                 sector1.updateSector1(player.player, canvas);
                 sector1.drawSector1(ctx);
-                player.updatePlayer(keys, canvas, sector1.sectorObjects);
+                player.updatePlayer(keys, canvas, sector1.sectorObjects, delta);
                 break;
             case 2:
                 sector2.updateSector2(player.player, canvas, ctx);

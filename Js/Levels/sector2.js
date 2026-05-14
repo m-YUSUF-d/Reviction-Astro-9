@@ -13,7 +13,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_2 = new Image();
-tileImg_2.src = "../assets/tiles/tile2.png";
+tileImg_2.src = "./assets/tiles/tile2.png";
 
 export let temperature = 0;
 export function setTemperature(temp) {

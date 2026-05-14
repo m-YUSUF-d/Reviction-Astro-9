@@ -10,7 +10,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_4 = new Image();
-tileImg_4.src = "../assets/tiles/tile4.png";
+tileImg_4.src = "./assets/tiles/tile4.png";
 
 
 //mesafeler
