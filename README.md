@@ -83,3 +83,9 @@ Bu projede yapay zekâ araçları:
 için yardımcı olarak kullanılmıştır.
 
 Tüm kodlar ekip tarafından geliştirilmiş ve kontrol edilmiştir.
+
+## Oyun Geliştiricileri
+
+-Mustafa Yusuf Daşdemir
+-Fatma Beray Eraslan
+-Enes Tanrıverdi
