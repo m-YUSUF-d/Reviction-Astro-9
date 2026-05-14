@@ -27,10 +27,6 @@ export const dialogs = {
         "Yeni düşmanlar tespit edildi."
     ]
 };
-let dialogIndex = 0;
-let charIndex = 0;
-let typedText = "";
-let frameCounter = 0;
 
 
 //inputlar
@@ -47,12 +43,6 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keyup", (e) => {
     keys[e.key.toLowerCase()] = false;
 });
-
-
-//araçlar
-function distance(x1, y1, x2, y2) {
-    return Math.hypot(x2 - x1, y2 - y1);
-}
 
 
 //oyunu yeniden başlatır
@@ -74,6 +64,15 @@ function nextSector() {
 }
 
 
+//hikayeyi ara sahnede oynatır
+function story(index) {
+    let dialogIndex = 0;
+    let charIndex = 0;
+    let typedText = "";
+    let frameCounter = 0;
+
+}
+
 //ana oyun döngüsü
 function gameLoop() {
     if (state.isPlayerDead) {
@@ -86,30 +85,19 @@ function gameLoop() {
         ctx.fillText("Game Over! Press R to Restart", canvas.width / 2, canvas.height / 2);
     }
     else if (state.isStateComplete) {
-        const list = dialogs[currentSector];
-
-        ctx.fillStyle = "rgba(2, 21, 84, 0.05)";
+        ctx.fillStyle = "rgba(0, 100, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = "white";
-        ctx.font = "36px Arial";
+        ctx.font = "48px Arial";
         ctx.textAlign = "center";
-
-        if (list && dialogIndex < list.length) {
-
-            const fullText = list[dialogIndex];
-            frameCounter++;
-
-            // hız kontrolü (her 2 frame'de 1 karakter)
-            if (frameCounter % 2 === 0) {
-                if (charIndex < fullText.length) {
-                    typedText += fullText[charIndex];
-                    charIndex++;
-                }
-            }
-
-            ctx.fillText(typedText, canvas.width / 2, canvas.height / 2);
+        if (currentSector >= 4) {
+            ctx.fillText("All sector completed !", canvas.width / 2, canvas.height / 2);
         }
+        else {
+            ctx.fillText(`Sector ${currentSector} completed! Press R to Continue`, canvas.width / 2, canvas.height / 2);
+        }
+
     }
     else {
         switch (currentSector) {

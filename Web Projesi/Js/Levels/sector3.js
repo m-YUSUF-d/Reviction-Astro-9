@@ -18,11 +18,6 @@ export const sectorObjects = {
 export const tileImg_3 = new Image();
 tileImg_3.src = "../assets/tiles/tile3.png";
 
-//mesafeler
-function distance(x1, y1, x2, y2) {
-    return Math.hypot(x2 - x1, y2 - y1);
-}
-
 
 //turretleri oluşturur
 function createTurrets(canvas) {
@@ -58,6 +53,7 @@ export function createEntities(canvas) {
 }
 
 
+//çarpışma
 function isColliding(a, b) {
 
     return (
@@ -251,10 +247,10 @@ function updateBoxes(canvas, player_) {
     // kutu-oyuncu collision
     for (let b of sectorObjects.boxes) {
         if (
-            player_.x - 5 < b.x + b.width + player_.size &&
-            player_.x + player_.size > b.x - 5 &&
-            player_.y - 5 < b.y + b.height + player_.size &&
-            player_.y + player_.size > b.y - 5
+            player_.x - 3 < b.x + b.width + player_.size &&
+            player_.x + player_.size > b.x - 3 &&
+            player_.y - 3 < b.y + b.height + player_.size &&
+            player_.y + player_.size > b.y - 3
         ) {
             state.killPlayer(true);
         }
