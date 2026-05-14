@@ -72,7 +72,7 @@ Her bölüm farklı bir oyun mekaniği içerir:
 
 ##  Canlı Oyun Linki
 
-
+https://m-yusuf-d.github.io/Reviction-Astro-9/
 
 ## Yapay Zeka Kullanımı
 
@@ -86,6 +86,22 @@ Tüm kodlar ekip tarafından geliştirilmiş ve kontrol edilmiştir.
 
 ## Oyun Geliştiricileri
 
--Mustafa Yusuf Daşdemir
--Fatma Beray Eraslan
--Enes Tanrıverdi
+Mustafa Yusuf Daşdemir
+Fatma Beray Eraslan
+Enes Tanrıverdi
+
+## Kaynakça / Assets
+
+Bu projede kullanılan görsel ve ses varlıkları aşağıdaki kaynaklardan temin edilmiştir:
+
+https://pixabay.com/
+https://freesound.org/
+
+https://ckgndodocat.itch.io/cyberpunk-ui-asset-pack-v1
+https://felmir-productions.itch.io/sci-fi-turret-sprite-pack
+https://dithart.itch.io/ditharts-free-sci-fi-tileset?download
+https://tyst.itch.io/td-light-artillery-robot
+https://buggystudio.itch.io/spaceship-creation-kit
+
+Oyun mekaniği ilhamı:
+4 Corners: https://portable-bird.itch.io/4-corners
