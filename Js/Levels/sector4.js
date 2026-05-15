@@ -1,8 +1,6 @@
 import * as box from "../Entities/box.js";
 import * as door from "../Entities/door.js";
-import * as player from "../Entities/player.js";
 import * as state from "../states.js";
-import * as audio from "../audioManager.js"
 
 export const sectorObjects = {
     boxes: [],
@@ -10,19 +8,11 @@ export const sectorObjects = {
 };
 
 export const tileImg_4 = new Image();
-tileImg_4.src = "./assets/tiles/tile4.png";
-
-
-//mesafeler
-function distance(x1, y1, x2, y2) {
-    return Math.hypot(x2 - x1, y2 - y1);
-}
+tileImg_4.src = "assets/tiles/tile4.png";
 
 
 //kutuları oluşturur
 function crateBoxes(canvas) {
-    const margin = 75; // oyuncu 0,0 olduğu için güvenli alan
-
     sectorObjects.boxes = [
         box.createBox(50, 0, 100, 75),
         box.createBox(150, 0, 100, 75),
@@ -71,13 +61,15 @@ export function createEntities(canvas) {
 }
 
 
-let timer = 0;
+let timer = 25;
 //sektör 4 güncellenir
-export function updateSector4() {
-    timer += 0.016; // yaklaşık 60 FPS için
-    if (timer > 25) {
+export function updateSector4(delta) {
+    delta = delta || 0;
+
+    timer -= 0.016 * delta; // yaklaşık 60 FPS için
+    if (timer < 0) {
         state.killPlayer(true);
-        timer = 0;
+        timer = 25;
     }
 }
 

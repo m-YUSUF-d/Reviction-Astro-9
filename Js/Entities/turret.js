@@ -7,7 +7,7 @@ export function createTurret(x, y) {
 
         angle: 0,
         fireRate: 60,   // frame
-        cooldown: 10,
+        cooldown: 60,
 
         range: 350
     };

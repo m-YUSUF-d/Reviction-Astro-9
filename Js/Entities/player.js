@@ -2,8 +2,8 @@ import *as state from "../states.js";
 import * as door from "./door.js"
 
 export const player = {
-    x: 0,
-    y: 0,
+    x: 5,
+    y: 5,
     size: 20,
 
     velocityX: 0,
@@ -34,10 +34,11 @@ let isMoving = false;
 
 //oyuncuyu günceller
 export function updatePlayer(keys, canvas, objects, delta) {
+    console.log(delta);
     if (keys["w"] || keys["arrowup"]) player.velocityY -= player.acceleration * delta;
     if (keys["s"] || keys["arrowdown"]) player.velocityY += player.acceleration * delta;
-    if (keys["a"] || keys["arrowleft"]) player.velocityX -= player.acceleration;
-    if (keys["d"] || keys["arrowright"]) player.velocityX += player.acceleration;
+    if (keys["a"] || keys["arrowleft"]) player.velocityX -= player.acceleration * delta;
+    if (keys["d"] || keys["arrowright"]) player.velocityX += player.acceleration * delta;
 
     //animasyon kontrolü
     isMoving =
@@ -47,7 +48,7 @@ export function updatePlayer(keys, canvas, objects, delta) {
         keys["d"] || keys["arrowright"];
 
     if (isMoving) {
-        animationTimer++;
+        animationTimer += delta;
         if (animationTimer >= animationSpeed) {
             animationTimer = 0;
             currentFrame++;

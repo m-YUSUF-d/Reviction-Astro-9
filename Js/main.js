@@ -59,6 +59,10 @@ function restartGame() {
     }
 }
 function nextSector() {
+    if (currentSector >= 4) {
+        window.location.replace("./index.html");
+        return;
+    }
     currentSector++;
     player.resetPlayer(canvas);
 }
@@ -75,7 +79,8 @@ function story(index) {
 
 
 let lastTime = 0;
-let delta = 1;
+let delta = 0;
+
 //ana oyun döngüsü
 function gameLoop(time) {
     const dt = time - lastTime; // ms
@@ -100,7 +105,7 @@ function gameLoop(time) {
         ctx.font = "36px Arial";
         ctx.textAlign = "center";
         if (currentSector >= 4) {
-            ctx.fillText("All sectors completed !", canvas.width / 2, canvas.height / 2);
+            ctx.fillText("All sectors completed ! Press R to Continue", canvas.width / 2, canvas.height / 2);
         }
         else {
             ctx.fillText(`Sector ${currentSector} completed! Press R to Continue`, canvas.width / 2, canvas.height / 2);
@@ -110,25 +115,25 @@ function gameLoop(time) {
     else {
         switch (currentSector) {
             case 1:
-                sector1.updateSector1(player.player, canvas);
+                sector1.updateSector1(player.player, canvas, delta);
                 sector1.drawSector1(ctx);
                 player.updatePlayer(keys, canvas, sector1.sectorObjects, delta);
                 break;
             case 2:
-                sector2.updateSector2(player.player, canvas, ctx);
-                sector2.drawSector2(ctx);
-                player.updatePlayer(keys, canvas, sector2.sectorObjects);
+                sector2.updateSector2(player.player, delta);
+                sector2.drawSector2(ctx, canvas);
+                player.updatePlayer(keys, canvas, sector2.sectorObjects, delta);
                 break;
             case 3:
-                sector3.updateSector3(player.player, canvas);
+                sector3.updateSector3(player.player, canvas, delta);
                 sector3.drawSector3(ctx);
-                player.updatePlayer(keys, canvas, sector3.sectorObjects);
+                player.updatePlayer(keys, canvas, sector3.sectorObjects, delta);
 
                 break;
             case 4:
-                sector4.updateSector4();
-                sector4.drawSector4(ctx, player.player);
-                player.updatePlayer(keys, canvas, sector4.sectorObjects);
+                sector4.updateSector4(delta);
+                sector4.drawSector4(ctx, player.player, delta);
+                player.updatePlayer(keys, canvas, sector4.sectorObjects, delta);
 
                 sector4.drawLighting(ctx, player.player, canvas);
                 sector4.drawTimer(ctx);
@@ -141,10 +146,12 @@ function gameLoop(time) {
     }
     requestAnimationFrame(gameLoop);
 }
-
+//sektördeki varlıkların oluşturulası
 sector1.createEntities(canvas);
 sector2.createEntities(canvas);
 sector3.createEntities(canvas);
 sector4.createEntities(canvas);
+
+
 
 gameLoop();

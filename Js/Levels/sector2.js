@@ -1,9 +1,7 @@
 import * as box from "../Entities/box.js";
 import * as door from "../Entities/door.js";
 import * as key from "../Entities/key.js";
-import * as player from "../Entities/player.js";
 import * as state from "../states.js";
-import * as audio from "../audioManager.js"
 
 
 export const sectorObjects = {
@@ -13,15 +11,11 @@ export const sectorObjects = {
 };
 
 export const tileImg_2 = new Image();
-tileImg_2.src = "./assets/tiles/tile2.png";
+tileImg_2.src = "assets/tiles/tile2.png";
 
-export let temperature = 0;
+export let temperature = 25;
 export function setTemperature(temp) {
     temperature = temp;
-}
-//mesafeler
-function distance(x1, y1, x2, y2) {
-    return Math.hypot(x2 - x1, y2 - y1);
 }
 
 
@@ -90,9 +84,9 @@ export function createEntities(canvas) {
 
 
 //sektör 2 güncellenir
-export function updateSector2(player_, canvas, ctx) {
-    if (temperature < 175) {
-        temperature += 0.15;
+export function updateSector2(player_, delta) {
+    if (temperature < 125) {
+        temperature += 0.15 * delta;
     } else {
         state.killPlayer(true);
     }
@@ -114,7 +108,7 @@ export function updateSector2(player_, canvas, ctx) {
 
 
 // sektör 2 haritasını çizer
-export function drawSector2(ctx) {
+export function drawSector2(ctx, canvas) {
     // arkaplan
     for (let y = 0; y < 600; y += 120) {
         for (let x = 0; x < 800; x += 120) {
@@ -155,11 +149,11 @@ export function drawSector2(ctx) {
     // sıcaklık çizilir
     ctx.fillStyle = "red";
     ctx.font = "24px Arial";
-    ctx.textAlign = "left";
+    ctx.textAlign = "right";
 
     ctx.fillText(
-        "Temperature: " + Math.floor(temperature),
-        20,
+        "Temperature: " + Math.floor(temperature) + "(Danger>125)",
+        canvas.width - 20,
         40
     );
 }

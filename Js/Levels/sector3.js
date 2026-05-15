@@ -3,9 +3,7 @@ import * as bullet from "../Entities/bullet.js";
 import * as blast from "../Entities/blast.js";
 import * as box from "../Entities/box.js";
 import * as door from "../Entities/door.js";
-import * as player from "../Entities/player.js";
 import * as state from "../states.js";
-import * as audio from "../audioManager.js"
 
 export const sectorObjects = {
     turrets: [],
@@ -16,7 +14,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_3 = new Image();
-tileImg_3.src = "./assets/tiles/tile3.png";
+tileImg_3.src = "assets/tiles/tile3.png";
 
 
 //turretleri oluşturur
@@ -26,20 +24,86 @@ function createTurrets(canvas) {
     ];
 }
 //kutuları oluşturur
-function crateBoxes(canvas) {
-    const margin = 75; // oyuncu 0,0 olduğu için güvenli alan
+function createBoxes(canvas) {
+
+    const margin = 75;
+    const t = sectorObjects.turrets[0];
+    const safeRadius = 120;
+
+    function isTooCloseToTurret(x, y, size) {
+
+        const boxCenterX = x + size / 2;
+        const boxCenterY = y + size / 2;
+
+        return (
+            boxCenterX > t.x - safeRadius &&
+            boxCenterX < t.x + safeRadius &&
+            boxCenterY > t.y - safeRadius &&
+            boxCenterY < t.y + safeRadius
+        );
+    }
+
+    function getSafePosition(size) {
+        let x, y;
+
+        do {
+            x = margin + Math.random() * (canvas.width - size - margin);
+            y = margin + Math.random() * (canvas.height - size - margin);
+        } while (isTooCloseToTurret(x, y, size));
+
+        return { x, y };
+    }
 
     sectorObjects.boxes = [
-        box.createBox(margin + Math.random() * (canvas.width - 80 - margin), margin + Math.random() * (canvas.height - 60 - margin), 70, 70),
-        box.createBox(margin + Math.random() * (canvas.width - 100 - margin), margin + Math.random() * (canvas.height - 80 - margin), 90, 90),
-        box.createBox(margin + Math.random() * (canvas.width - 100 - margin), margin + Math.random() * (canvas.height - 80 - margin), 90, 90),
-        box.createBox(margin + Math.random() * (canvas.width - 60 - margin), margin + Math.random() * (canvas.height - 45 - margin), 50, 50),
-        box.createBox(margin + Math.random() * (canvas.width - 60 - margin), margin + Math.random() * (canvas.height - 45 - margin), 40, 40),
-        box.createBox(margin + Math.random() * (canvas.width - 60 - margin), margin + Math.random() * (canvas.height - 45 - margin), 40, 40),
-        box.createBox(margin + Math.random() * (canvas.width - 100 - margin), margin + Math.random() * (canvas.height - 75 - margin), 80, 80),
-        box.createBox(margin + Math.random() * (canvas.width - 60 - margin), margin + Math.random() * (canvas.height - 45 - margin), 50, 50),
-        box.createBox(margin + Math.random() * (canvas.width - 100 - margin), margin + Math.random() * (canvas.height - 75 - margin), 80, 80),
-        box.createBox(margin + Math.random() * (canvas.width - 80 - margin), margin + Math.random() * (canvas.height - 60 - margin), 70, 70)
+        (() => {
+            const p = getSafePosition(70);
+            return box.createBox(p.x, p.y, 70, 70);
+        })(),
+
+        (() => {
+            const p = getSafePosition(90);
+            return box.createBox(p.x, p.y, 90, 90);
+        })(),
+
+        (() => {
+            const p = getSafePosition(90);
+            return box.createBox(p.x, p.y, 90, 90);
+        })(),
+
+        (() => {
+            const p = getSafePosition(50);
+            return box.createBox(p.x, p.y, 50, 50);
+        })(),
+
+        (() => {
+            const p = getSafePosition(40);
+            return box.createBox(p.x, p.y, 40, 40);
+        })(),
+
+        (() => {
+            const p = getSafePosition(40);
+            return box.createBox(p.x, p.y, 40, 40);
+        })(),
+
+        (() => {
+            const p = getSafePosition(80);
+            return box.createBox(p.x, p.y, 80, 80);
+        })(),
+
+        (() => {
+            const p = getSafePosition(50);
+            return box.createBox(p.x, p.y, 50, 50);
+        })(),
+
+        (() => {
+            const p = getSafePosition(80);
+            return box.createBox(p.x, p.y, 80, 80);
+        })(),
+
+        (() => {
+            const p = getSafePosition(70);
+            return box.createBox(p.x, p.y, 70, 70);
+        })()
     ];
 }
 //kapıyı oluşturur
@@ -48,7 +112,7 @@ function createDoors(canvas) {
 }
 export function createEntities(canvas) {
     createTurrets(canvas);
-    crateBoxes(canvas);
+    createBoxes(canvas);
     createDoors(canvas);
 }
 
@@ -119,8 +183,8 @@ function resolveCollision(a, b) {
 
 
 //update turrets
-function updateTurrets(player_) {
-
+function updateTurrets(player_, delta) {
+    delta = delta || 0;
     for (let t of sectorObjects.turrets) {
 
         const dx = (player_.x + player_.size / 2) - t.x;
@@ -133,10 +197,10 @@ function updateTurrets(player_) {
         }
 
         if (t.cooldown > 0) {
-            t.cooldown--;
+            t.cooldown = t.cooldown - delta;
         }
 
-        if (dist < t.range * 1.1 && t.cooldown === 0) {
+        if (dist < t.range * 1.1 && t.cooldown <= 0) {
             turret.playTurretSound();
             sectorObjects.bullets.push(bullet.createBullet(t.x + 4, t.y + 4, t.angle));//mermiler oluşur
             t.cooldown = t.fireRate / 2;
@@ -144,13 +208,14 @@ function updateTurrets(player_) {
     }
 }
 //update bullets
-function updateBullets(player_, canvas) {
+function updateBullets(player_, canvas, delta) {
+    delta = delta || 0;
     for (let i = sectorObjects.bullets.length - 1; i >= 0; i--) {
 
         const b = sectorObjects.bullets[i];
 
-        b.x += b.velocityX;
-        b.y += b.velocityY;
+        b.x += b.velocityX * delta;
+        b.y += b.velocityY * delta;
 
         //mermiler kutulara çarparsa patlama olur
         for (let box of sectorObjects.boxes) {
@@ -205,11 +270,11 @@ function updateBlasts() {
     }
 }
 //update boxes
-function updateBoxes(canvas, player_) {
-    // hareket
+function updateBoxes(canvas, player_, delta) {
+    // hareket & duvar collision
     for (let b of sectorObjects.boxes) {
-        b.x += b.velocityX;
-        b.y += b.velocityY;
+        b.x += b.velocityX * delta;
+        b.y += b.velocityY * delta;
 
         // duvar collision X
         if (b.x < 0) {
@@ -232,9 +297,7 @@ function updateBoxes(canvas, player_) {
 
     // kutu-kutu collision
     for (let i = 0; i < sectorObjects.boxes.length; i++) {
-
         for (let j = i + 1; j < sectorObjects.boxes.length; j++) {
-
             let a = sectorObjects.boxes[i];
             let b = sectorObjects.boxes[j];
 
@@ -243,7 +306,36 @@ function updateBoxes(canvas, player_) {
             }
         }
     }
+    //kutu-turret collision
+    for (let b of sectorObjects.boxes) {
 
+        const t = sectorObjects.turrets[0];
+
+        const left = t.x - t.radius;
+        const right = t.x + t.radius;
+        const top = t.y - t.radius;
+        const bottom = t.y + t.radius;
+
+        // X çarpışma
+        if (
+            b.x + b.width > left &&
+            b.x < right &&
+            b.y + b.height > top &&
+            b.y < bottom
+        ) {
+            b.velocityX *= -1;
+        }
+
+        // Y çarpışma
+        if (
+            b.x + b.width > left &&
+            b.x < right &&
+            b.y + b.height > top &&
+            b.y < bottom
+        ) {
+            b.velocityY *= -1;
+        }
+    }
     // kutu-oyuncu collision
     for (let b of sectorObjects.boxes) {
         if (
@@ -258,11 +350,11 @@ function updateBoxes(canvas, player_) {
 }
 
 //sektör 3 güncellenir
-export function updateSector3(player_, canvas) {
-    updateTurrets(player_);
-    updateBullets(player_, canvas);
+export function updateSector3(player_, canvas, delta) {
+    updateTurrets(player_, delta);
+    updateBullets(player_, canvas, delta);
     updateBlasts();
-    updateBoxes(canvas, player_);
+    updateBoxes(canvas, player_, delta);
 }
 
 

@@ -3,7 +3,6 @@ import * as box from "../Entities/box.js";
 import * as bullet from "../Entities/bullet.js";
 import * as blast from "../Entities/blast.js";
 import * as door from "../Entities/door.js";
-import * as player from "../Entities/player.js";
 import * as state from "../states.js";
 
 export const sectorObjects = {
@@ -15,13 +14,7 @@ export const sectorObjects = {
 };
 
 export const tileImg_1 = new Image();
-tileImg_1.src = "./assets/tiles/tile1.png";
-
-
-//mesafeler
-function distance(x1, y1, x2, y2) {
-    return Math.hypot(x2 - x1, y2 - y1);
-}
+tileImg_1.src = "assets/tiles/tile1.png";
 
 
 //turretleri oluşturur
@@ -33,7 +26,6 @@ function initturrets(canvas) {
 }
 //kutuları oluşturur
 function crateBoxes(canvas) {
-
     sectorObjects.boxes = [
         box.createBox(0, canvas.height / 2 - 125, 100, 100),
         box.createBox(0, canvas.height / 2 - 25, 100, 100),
@@ -48,7 +40,6 @@ function crateBoxes(canvas) {
         box.createBox(600, 200, 100, 100),
         box.createBox(canvas.width - 100, canvas.height - 100, 100, 100),
     ];
-
 }
 //kapıyı oluşturur
 function createDoors(canvas) {
@@ -62,7 +53,8 @@ export function createEntities(canvas) {
 
 
 //update turrets
-function updateTurrets(player) {
+function updateTurrets(player, delta = 0.5) {
+    delta = delta || 0.5;
 
     for (let t of sectorObjects.turrets) {
 
@@ -76,10 +68,10 @@ function updateTurrets(player) {
         }
 
         if (t.cooldown > 0) {
-            t.cooldown--;
+            t.cooldown -= delta;
         }
 
-        if (dist < t.range && t.cooldown === 0) {
+        if (dist < t.range && t.cooldown <= 0) {
             turret.playTurretSound();
             sectorObjects.bullets.push(bullet.createBullet(t.x + 4, t.y + 4, t.angle));//mermiler oluşur
             t.cooldown = t.fireRate;
@@ -87,13 +79,15 @@ function updateTurrets(player) {
     }
 }
 //update bullets
-function updateBullets(player_, canvas) {
+function updateBullets(player_, canvas, delta) {
+    delta = delta || 0.5;
+
     for (let i = sectorObjects.bullets.length - 1; i >= 0; i--) {
 
         const b = sectorObjects.bullets[i];
 
-        b.x += b.velocityX;
-        b.y += b.velocityY;
+        b.x += b.velocityX * delta;
+        b.y += b.velocityY * delta;
 
         //mermiler kutulara çarparsa patlama olur
         for (let box of sectorObjects.boxes) {
@@ -147,9 +141,9 @@ function updateBlasts() {
         }
     }
 }
-export function updateSector1(player, canvas) {
-    updateTurrets(player);
-    updateBullets(player, canvas);
+export function updateSector1(player, canvas, delta) {
+    updateTurrets(player, delta);
+    updateBullets(player, canvas, delta);
     updateBlasts();
 }
 
