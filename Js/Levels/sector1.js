@@ -20,8 +20,8 @@ tileImg_1.src = "assets/tiles/tile1.png";
 //turretleri oluşturur
 function initturrets(canvas) {
     sectorObjects.turrets = [
-        turret.createTurret(canvas.width / 2, 100),
-        turret.createTurret(600, 500)
+        turret.createTurret(canvas.width / 2, 50),
+        turret.createTurret(600, 550)
     ];
 }
 //kutuları oluşturur

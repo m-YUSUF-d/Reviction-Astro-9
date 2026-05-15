@@ -149,11 +149,11 @@ export function drawSector2(ctx, canvas) {
     // sıcaklık çizilir
     ctx.fillStyle = "red";
     ctx.font = "24px Arial";
-    ctx.textAlign = "right";
+    ctx.textAlign = "left";
 
     ctx.fillText(
         "Temperature: " + Math.floor(temperature) + "(Danger>125)",
-        canvas.width - 20,
+        20,
         40
     );
 }

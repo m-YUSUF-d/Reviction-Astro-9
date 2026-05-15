@@ -13,22 +13,6 @@ const ctx = canvas.getContext("2d");
 export let currentSector = 1;
 
 
-//dialoglar
-export const dialogs = {
-    sector1: [
-        "Uyan... sistem çöktü.",
-        "Bu tesis artık güvenli değil.",
-        "Hayatta kalmak için hareket etmelisin.",
-        "Hazır ol. Başlıyoruz."
-    ],
-
-    sector2: [
-        "Sector 2 aktif.",
-        "Yeni düşmanlar tespit edildi."
-    ]
-};
-
-
 //inputlar
 const keys = {};
 document.addEventListener("keydown", (e) => {
@@ -65,16 +49,6 @@ function nextSector() {
     }
     currentSector++;
     player.resetPlayer(canvas);
-}
-
-
-//hikayeyi ara sahnede oynatır
-function story(index) {
-    let dialogIndex = 0;
-    let charIndex = 0;
-    let typedText = "";
-    let frameCounter = 0;
-
 }
 
 
@@ -151,7 +125,6 @@ sector1.createEntities(canvas);
 sector2.createEntities(canvas);
 sector3.createEntities(canvas);
 sector4.createEntities(canvas);
-
 
 
 gameLoop();

@@ -22,7 +22,7 @@ turretImg.src = "assets/turret/turret_body.png";
 
 export function playTurretSound() {
     const audio = new Audio("assets/sounds/turret.mp3");
-    audio.volume = 0.7
+    audio.volume = 0.5
     ;
     audio.currentTime = 0;
     audio.play();

@@ -15,7 +15,7 @@ bulletImg.src = "assets/turret/turret_bullet.png";
 
 export function playBlastSound() {
     const audio = new Audio("assets/sounds/blast.mp3");
-    audio.volume = 1;
+    audio.volume = 0.7;
     audio.currentTime = 0;
     audio.play();
 }
