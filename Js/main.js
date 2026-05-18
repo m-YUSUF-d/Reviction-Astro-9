@@ -79,7 +79,7 @@ function gameLoop(time) {
         ctx.font = "36px Arial";
         ctx.textAlign = "center";
         if (currentSector >= 4) {
-            ctx.fillText("All sectors completed ! Press R to Continue", canvas.width / 2, canvas.height / 2);
+            ctx.fillText("All sectors completed ! Press R to Main Menu", canvas.width / 2, canvas.height / 2);
         }
         else {
             ctx.fillText(`Sector ${currentSector} completed! Press R to Continue`, canvas.width / 2, canvas.height / 2);

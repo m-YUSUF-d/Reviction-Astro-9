@@ -85,7 +85,7 @@ export function createEntities(canvas) {
 
 //sektör 2 güncellenir
 export function updateSector2(player_, delta) {
-    if (temperature < 125) {
+    if (temperature < 140) {
         temperature += 0.15 * delta;
     } else {
         state.killPlayer(true);
@@ -152,7 +152,7 @@ export function drawSector2(ctx, canvas) {
     ctx.textAlign = "left";
 
     ctx.fillText(
-        "Temperature: " + Math.floor(temperature) + "(Danger>125)",
+        "Temperature: " + Math.floor(temperature) + "(Danger: 140)",
         20,
         40
     );

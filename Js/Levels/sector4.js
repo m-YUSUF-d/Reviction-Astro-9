@@ -61,7 +61,7 @@ export function createEntities(canvas) {
 }
 
 
-let timer = 25;
+let timer = 30;
 //sektör 4 güncellenir
 export function updateSector4(delta) {
     delta = delta || 0;
