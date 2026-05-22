@@ -122,4 +122,4 @@ Bu projede kullanılan görsel ve ses varlıkları aşağıdaki kaynaklardan tem
 
 Oyun mekaniği ilhamı:
 
-* 🕹️ [4 Corners]([https://portable-bird.itch.io/4-corners](https://portable-bird.itch.io/4-corners))
+* 🕹️ [4 Corners](https://portable-bird.itch.io/4-corners)
